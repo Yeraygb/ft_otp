@@ -1,4 +1,4 @@
-#------------------------------ LIBRERIAS ------------------------------------xw
+#------------------------------- LIBRERIAS ------------------------------------
 
 import argparse
 from cgi import print_environ
@@ -6,16 +6,18 @@ import sys
 from cryptography.fernet import Fernet
 import ft_hotp
 
-# ----------------------------- ENCRIPTAR --------------------------------
+# ------------------------------ ENCRIPTAR ----------------------------------
 
 def encrypt(hex_key):
 	key = Fernet.generate_key()
 	with open(".key", "wb") as a:
 		a.write(key)
 	key = Fernet(key)
-	with open("ft_opt.key", "wb") as f:
+	with open("ft_otp.key", "wb") as f:
 		f.write(key.encrypt(hex_key.encode()))
 	print("Key succesfully encrypted into ft_otp.key")
+
+# -------------------------------- EJECUCION ----------------------------------
 
 def args_conf():
 	parser = argparse.ArgumentParser(
@@ -28,8 +30,6 @@ def args_conf():
 
 	args = parser.parse_args()
 	return args
-
-# -------------------------------- EJECUCION ----------------------------------
 
 def main():
 	args = args_conf()

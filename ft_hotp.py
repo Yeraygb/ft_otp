@@ -2,6 +2,7 @@ import hmac, base64, struct, hashlib, time
 from cryptography.fernet import Fernet
 
 
+
 def get_hotp_token(secret, intervals_no):
 
 	key = base64.b16decode(secret, True)
@@ -19,11 +20,9 @@ def get_hotp_token(secret, intervals_no):
 	#unpacking
 	return h
 
-def get_totp_token(secret, fernet):
-	dectex = fernet.decrypt(secret).decode()
-	print(dectex)
+def get_totp_token(decryted):
 	#asegurarse de dar el mismo otp durante 30 segundos
-	x = str(get_hotp_token(secret, intervals_no=int(time.time())//30))
+	x = str(get_hotp_token(decryted, intervals_no=int(time.time())//30))
 
 	while len(x)!=6:
 		x+='0'
