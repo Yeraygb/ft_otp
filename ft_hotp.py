@@ -22,9 +22,3 @@ def get_totp_token(decryted):
 	while len(x)!=6:
 		x+='0'
 	return x
-
-#base64 encoded key
-""" with open('ft_otp.key', 'rb') as enc_file:
-	encrypted = enc_file.read()
-secret = base64.b64encode(encrypted).decode("latin-1")
-print(get_totp_token(secret)) """
