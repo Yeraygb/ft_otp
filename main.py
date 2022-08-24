@@ -6,36 +6,16 @@ import sys
 from cryptography.fernet import Fernet
 import ft_hotp
 
-key_file_name = "ft_otp.key"
+# ----------------------------- ENCRIPTAR --------------------------------
 
-# ----------------------------- CONFIGURACION --------------------------------
-
-def is_hex(key_hex):
-	"""Function to verify if string is hex of 64 characters"""
-	if len(key_hex) >= 64:
-		try:
-			int(key_hex, 16)
-		except ValueError:
-			return False
-		return True
-	else:
-		return False
-
-def save_key(key_hex):
-   """Function to save the key ciphered"""
-   pass
-
-def encrypt(key_hex):
+def encrypt(hex_key):
 	key = Fernet.generate_key()
-	fernet = Fernet(key)
-	enctex = fernet.encrypt(key_hex.encode())
-	file = open("ft_otp.key", "a")
-	keyencript = str(enctex)
-	file.write(keyencript)
-	file.close()
-	return fernet
-	
-
+	with open(".key", "wb") as a:
+		a.write(key)
+	key = Fernet(key)
+	with open("ft_opt.key", "wb") as f:
+		f.write(key.encrypt(hex_key.encode()))
+	print("Key succesfully encrypted into ft_otp.key")
 
 def args_conf():
 	parser = argparse.ArgumentParser(
@@ -49,28 +29,26 @@ def args_conf():
 	args = parser.parse_args()
 	return args
 
-"""Este programa recibe una clave hexadecimal de al menos 64 caracteres como argumento,
-guarda esa clave cifrada en un archivo ft_otp.key y genera una contraseña temporal"""
-
 # -------------------------------- EJECUCION ----------------------------------
 
 def main():
 	args = args_conf()
 	if args.new_key:
-		with open(sys.argv[2], 'rt') as file:
+		with open(sys.argv[2], 'rb') as file:
 			original_hex = file.read()
-		if is_hex(original_hex) is False:
-			print("Error, you must set an hexadecimal password of 64 characters or more")
-		else:
-			#save_key(original_hex)
-			key = encrypt(original_hex)
-			print(key)
-			fernet = staticmethod(key)
-			print("Key succesfully encrypted into ft_otp.key")
-	if args.key_gen:
-		with open(sys.argv[2], 'rb') as enc_file:
-			key_hex_encrypted = enc_file.read()
-		print(ft_hotp.get_totp_token(key_hex_encrypted, fernet))
+		hex_key = int(original_hex, 16)
+		hex_key = str(original_hex)
+		encrypt(hex_key)
+	elif args.key_gen:
+		with open(".key", "rb") as filekey:
+			key1 = filekey.read()
+		key = Fernet(key1)
+		with open(sys.argv[2], 'rb') as q:
+			encrypted_data = q.read()
+		decryted_data = key.decrypt(encrypted_data)
+		c = len(decryted_data) - 1
+		decryted_data = decryted_data[2:c]
+		print(ft_hotp.get_totp_token(decryted_data))
 
 if __name__ == "__main__":
 	main()
