@@ -1,5 +1,5 @@
 NAME = ft_otp
-FILENAME = main.py
+FILENAME = otp.py
 PATH = $(cat key.hex)
 
 rename:

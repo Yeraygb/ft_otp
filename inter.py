@@ -6,22 +6,23 @@ from turtle import width
 from cryptography.fernet import Fernet
 import ft_hotp
 import qrcode
+from otp import encrypt
 
-def encrypt(hex_key):
+""" def encrypt(hex_key):
 	key = Fernet.generate_key()
 	with open(".key", "wb") as a:
 		a.write(key)
 	key = Fernet(key)
 	with open("ft_otp.key", "wb") as f:
 		f.write(key.encrypt(hex_key.encode()))
-	print("Key succesfully encrypted into ft_otp.key")
+	print("Key succesfully encrypted into ft_otp.key") """
 
-def i_g(file):
-	with open(file, 'rb') as file:
+def i_g(file1):
+	with open(file1, 'rb') as file:
 		original_hex = file.read()
 	hex_key = int(original_hex, 16)
 	hex_key = str(original_hex)
-	encrypt(hex_key)
+	otp.encrypt(hex_key)
 
 def i_k(file):
 	with open(".key", "rb") as filekey:
