@@ -9,6 +9,7 @@ rename:
 
 clean:
 	@rm -f $(NAME)
+	@rm -f code.txt
 	@echo 🗑 "\033[31;3;4mft_otp delete\033[0m"
 
 g:
@@ -18,6 +19,10 @@ g:
 k:
 	@python3 $(NAME) -k ft_otp.key
 	@echo 🔐 "\033[93;3;4mnumber created\033[0m"
+
+q:
+	@python3 $(NAME) -q code.txt
+	@echo 📄 "\033[93;3;4qr created\033[0m"
 
 o:
 	@oathtool --totp $(cat key.hex)

@@ -5,6 +5,7 @@ from cgi import print_environ
 import sys
 from cryptography.fernet import Fernet
 import ft_hotp
+import qrcode
 
 # ------------------------------ ENCRIPTAR ----------------------------------
 
@@ -25,8 +26,10 @@ def args_conf():
 	)
 	# Save ciphered ft_otp.key
 	parser.add_argument('-g', '--new-key', help = 'Save hexadecimal key in ft_otp.key', default = None)
-	# Generate new key
+	# Generate code
 	parser.add_argument('-k', '--key-gen', help = 'Generate new totp autentication code', default = None)
+	# Generate qr
+	parser.add_argument('-q', '--qr-gen', help = 'Generate qr with totp code', default = None)
 
 	args = parser.parse_args()
 	return args
@@ -49,6 +52,16 @@ def main():
 		c = len(decryted_data) - 1
 		decryted_data = decryted_data[2:c]
 		print(ft_hotp.get_totp_token(decryted_data))
+		code = ft_hotp.get_totp_token(decryted_data)
+		with open("code.txt", "wt") as e:
+			e.write(code)
+	elif args.qr_gen:
+		with open("code.txt", "rt") as z:
+			code = z.read()
+		data = code
+		filename = "qrcode.png"
+		img = qrcode.make(data)
+		img.save(filename)
 
 if __name__ == "__main__":
 	main()
