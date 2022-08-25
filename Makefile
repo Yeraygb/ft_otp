@@ -1,5 +1,5 @@
 NAME = ft_otp
-FILENAME = otp.py
+FILENAME = ft_otp.py
 PATH = $(cat key.hex)
 
 rename:
@@ -9,8 +9,14 @@ rename:
 
 clean:
 	@rm -f $(NAME)
-	@rm -f code.txt
 	@echo 🗑 "\033[31;3;4mft_otp delete\033[0m"
+
+fclean:
+	@rm -f $(NAME)
+	@rm -f code.txt
+	@rm -f ft_otp.key
+	@rm -f .key
+	@rm -f qrcode.png
 
 g:
 	@python3 $(NAME) -g key.hex
@@ -23,6 +29,9 @@ k:
 q:
 	@python3 $(NAME) -q code.txt
 	@echo 📄 "\033[93;3;4qr created\033[0m"
+
+i:
+	@python3 $(NAME) -i
 
 o:
 	@oathtool --totp $(cat key.hex)
