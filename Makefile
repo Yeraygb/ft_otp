@@ -33,11 +33,4 @@ q:
 i:
 	@python3 $(NAME) -i
 
-o:
-	@oathtool --totp $(cat key.hex)
-
-comprobar:
-	@python3 $(NAME) -k ft_otp.key
-	@oathtool --totp $(PATH)
-
 

@@ -17,16 +17,16 @@ def encrypt(hex_key):
 		f.write(key.encrypt(hex_key.encode()))
 	print("Key succesfully encrypted into ft_otp.key")
 
-def i_g(file):
-	with open(file, 'rb') as file:
+def i_g(file1, frame):
+	with open(file1, 'rb') as file:
 		original_hex = file.read()
 	hex_key = int(original_hex, 16)
 	hex_key = str(original_hex)
 	encrypt(hex_key)
-	mess = ttk.Label(text="Key succesfully encrypted into ft_otp.key")
-	mess.pack
+	mess = ttk.Label(frame, text="Key succesfully encrypted into ft_otp.key")
+	mess.pack()
 	
-def i_k(file):
+def i_k(file, frame):
 	with open(".key", "rb") as filekey:
 			key1 = filekey.read()
 	key = Fernet(key1)
@@ -39,6 +39,9 @@ def i_k(file):
 	code = ft_hotp.get_totp_token(decryted_data)
 	with open("code.txt", "wt") as e:
 		e.write(code)
+	mess = ttk.Label(frame, text=code)
+	mess.pack()
+
 
 def i_q():
 	with open("code.txt", "rt") as z:
@@ -57,10 +60,10 @@ def interactive():
 	frame.geometry('400x200+500+500')
 
 	# Buttons
-	button1 = ttk.Button(frame, text="-g save hexadecimal key", command=lambda: i_g("key.hex"))
+	button1 = ttk.Button(frame, text="-g save hexadecimal key", command=lambda: i_g("key.hex", frame))
 	button1.pack()
 
-	button2 = ttk.Button(frame, text="-k generate new totp", command=lambda: i_k("ft_otp.key"))
+	button2 = ttk.Button(frame, text="-k generate new totp", command=lambda: i_k("ft_otp.key", frame))
 	button2.pack()
 
 	button3 = ttk.Button(frame, text="-q generate a qr", command=lambda: i_q())
