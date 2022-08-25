@@ -32,5 +32,3 @@ q:
 
 i:
 	@python3 $(NAME) -i
-
-
