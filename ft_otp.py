@@ -1,10 +1,9 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
 #------------------------------- LIBRERIAS ------------------------------------
 
 import argparse
 from cgi import print_environ
-from curses import window
 import sys
 from cryptography.fernet import Fernet
 import ft_hotp
