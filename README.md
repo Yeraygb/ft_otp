@@ -4,7 +4,8 @@ DEFINITION:
 
 	The ft_otp program allows you to register an initial key, and is capable of generating a new password every x seconds.
 
-	•With the -g option, the program must receive as an argument a hexadecimal key of at least 64 characters. The program safely stores this key in a file called ft_otp.key, which will be encrypted at all times.
+	•With the -g option, the program must receive as an argument a hexadecimal key of at least 64 characters.
+	The program safely stores this key in a file called ft_otp.key, which will be encrypted at all times.
 
 	•With the -k option, the program generates a new temporary password and prints it to standard output
 
